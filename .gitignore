@@ -1,0 +1,20 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environment
+.venv/
+
+# Data (never commit datasets)
+data/
+
+# Model outputs and logs
+artifacts/
+logs/
+
+# Secrets (API keys, passwords)
+.env
