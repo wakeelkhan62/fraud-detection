@@ -18,3 +18,5 @@ logs/
 
 # Secrets (API keys, passwords)
 .env
+logs/
+.pytest_cache/
