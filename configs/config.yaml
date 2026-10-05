@@ -1,0 +1,35 @@
+# Central configuration. Change values here, not inside the code.
+
+data:
+  raw_dir: data/raw            # put train_transaction.csv and train_identity.csv here
+  nrows: null                  # e.g. 100000 for a quick experiment; null = all rows
+
+split:
+  # Time-ordered split: oldest -> train, middle -> valid, newest -> test.
+  # valid is used for early stopping and choosing the threshold.
+  # test is touched ONCE, for the final honest report.
+  valid_frac: 0.15
+  test_frac: 0.15
+
+model:
+  lgbm:
+    n_estimators: 3000
+    learning_rate: 0.03
+    num_leaves: 64
+    min_child_samples: 100
+    subsample: 0.8
+    subsample_freq: 1
+    colsample_bytree: 0.5
+    reg_lambda: 1.0
+    random_state: 42
+    n_jobs: -1
+    verbose: -1
+  early_stopping_rounds: 100
+
+cost:
+  # Business cost model used to choose the decision threshold.
+  # Missed fraud (false negative) costs the transaction amount.
+  # A false alarm (false positive) costs a manual review + customer friction.
+  review_cost: 25.0
+
+artifacts_dir: artifacts

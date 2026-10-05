@@ -1,0 +1,23 @@
+# Runs the test suite on every push and pull request.
+# Tests use synthetic data, so CI never needs the real (private) dataset.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install dependencies (exactly as locked)
+        run: uv sync --frozen
+
+      - name: Run tests
+        run: uv run pytest

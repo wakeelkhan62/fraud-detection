@@ -1,7 +1,7 @@
 [project]
 name = "fraud-detection"
 version = "0.1.0"
-description = "Add your description here"
+description = "Production-style real-time fraud detection system on the IEEE-CIS dataset: time-based validation, cost-based thresholds and a FastAPI scoring service."
 readme = "README.md"
 authors = [
     { name = "Wakeel Ahmad", email = "157325160+wakeelkhan62@users.noreply.github.com" }
@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.142.2",
+    "httpx>=0.28",
     "lightgbm>=4.7.0",
     "numpy>=2.5.3",
     "pandas>=3.0.6",
@@ -18,7 +19,8 @@ dependencies = [
 ]
 
 [project.scripts]
-fraud-detection = "fraud_detection:main"
+fraud-train = "fraud_detection.train:main"
+fraud-replay = "fraud_detection.replay:main"
 
 [build-system]
 requires = ["uv_build>=0.12.23,<0.13.0"]
@@ -26,5 +28,11 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
+    "httpx2>=2.13.1",
     "pytest>=9.1.1",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
